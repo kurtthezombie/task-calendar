@@ -38,7 +38,7 @@
                 <form action="login-process.php" method="POST">
                   <div class="mb-3">
                     <label for="" class="form-label fw-bold mt-5">EMAIL ADDRESS</label>
-                    <input type="text" name="TxtEmailAdd" id="" class="form-control border-bottom border-3 my-1 border-0 py-2 rounded-0" placeholder="&#9993; Type your email address" />
+                    <input type="email" name="TxtEmailAdd" id="" class="form-control border-bottom border-3 my-1 border-0 py-2 rounded-0" placeholder="&#9993; Type your email address" />
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label fw-bold mt-5">PASSWORD</label>
