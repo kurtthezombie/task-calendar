@@ -1,7 +1,12 @@
 <?php
+    session_start();
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_POST['TxtEmailAdd'];
         $password = $_POST['TxtPassword'];
+        
+        $_SESSION['email'] = $email;
+        $_SESSION['password'] = $password;
+
 
         //connect db
         $db = mysqli_connect("localhost","root","","taskcalendar");
@@ -14,7 +19,8 @@
             if($result) {
                 if(mysqli_num_rows($result) > 0) {
                     //user exists?
-                    echo "<p style='color:green;'>Successfully logged in!</p>";
+                    header("Location: main.php");
+                    exit(); 
                 }
                 else{
                     echo "<p style='color:red;'>Incorrect username and password!</p>"; 

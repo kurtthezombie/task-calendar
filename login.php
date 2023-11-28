@@ -1,3 +1,8 @@
+<?php 
+  session_start();
+  unset($_SESSION['email']);
+  unset($_SESSION['password']);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
