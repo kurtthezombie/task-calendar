@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  //if logged in already, redirect to main page.
+  if(isset($_SESSION['email'])){
+    header("Location: main.php");
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

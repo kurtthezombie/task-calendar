@@ -1,7 +1,11 @@
 <?php 
   session_start();
-  unset($_SESSION['email']);
-  unset($_SESSION['password']);
+
+  //if logged in already, redirect to main page.
+  if(isset($_SESSION['email'])){
+    header("Location: main.php");
+    exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +52,7 @@
                     <a href="forgotpassword.php" class="text-decoration-none tc-custom-pink">Forgot Password?</a>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-lg btn-primary shadow-sm">Login</button>
+                    <button type="submit" name="BtnLogin" class="btn btn-lg btn-primary shadow-sm">Login</button>
                     <!--<p class="text-muted mt-1">or</p>-->
                   </div>
                 </form>

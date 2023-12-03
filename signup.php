@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  //if logged in already, redirect to main page.
+  if(isset($_SESSION['email'])){
+    header("Location: main.php");
+    exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +25,9 @@
   </head>
   <body>
     <?php
+      error_reporting(E_ALL);
+      ini_set('display_errors', 1);
+      
       //declare variables for data to store in
       $var_firstname = "";
       $var_lastname = "";
@@ -28,27 +39,27 @@
         $var_firstname = $_POST["TxtFirstName"];
         $var_lastname = $_POST["TxtLastName"];
         $var_email = trim($_POST["TxtEmail"]);
-        $var_password = $_POST["TxtPassword"];
-        //test if gathered
+        $var_password = password_hash($_POST["TxtPassword"], PASSWORD_BCRYPT);
+
         //print errors
         $errors = array();
         
         //error trapping
         //et: first name
         if(!ctype_alpha(str_replace(' ','',$var_firstname))){
-          $errors[] = "<p style='color:red;' class='h3 text-center mx-auto mt-5 mb-0'>Invalid First Name: Please enter only letters and spaces.</p>";
+          $errors[] = "<p style='color:red;' class='h5 text-center mx-auto mt-1 mb-0'>Invalid First Name: Please enter only letters and spaces.</p>";
         }
         //et: last name
         if(!ctype_alpha(str_replace(' ','',$var_lastname))){
-          $errors[] = "<p style='color:red;' class='h3 text-center mx-auto mt-5 mb-0'>Invalid Last Name: Please enter only letters and spaces.</p>";
+          $errors[] = "<p style='color:red;' class='h5 text-center mx-auto mt-1 mb-0'>Invalid Last Name: Please enter only letters and spaces.</p>";
         }
         //et: email address
         if (!filter_var($var_email, FILTER_VALIDATE_EMAIL)){
-          $errors[] = "<p style='color:red;' class='h3 text-center mx-auto mt-5 mb-0'>Invalid Email Address: Please enter only letters and spaces.</p>";
+          $errors[] = "<p style='color:red;' class='h5 text-center mx-auto mt-1 mb-0'>Invalid Email Address: Please enter only letters and spaces.</p>";
         }
         //et: checkUnique email address
         if (!isEmailUnique($var_email)){
-          $errors[] = "<p style='color:red;' class='h3 text-center mx-auto mt-5 mb-0'>Somebody already owns this email address</p>";
+          $errors[] = "<p style='color:red;' class='h5 text-center mx-auto mt-1 mb-0'>Somebody already owns this email address</p>";
         }
         //et: password - none
         if(!empty($errors)){
@@ -60,11 +71,11 @@
         else {
           //insert into the table
           $conn = mysqli_connect("localhost","root","","taskcalendar");
-          if(!$conn->connect_error) {
+          if(!$conn->connect_error) { 
             //insert into
             $query = "INSERT INTO `user_info` (user_email, user_password, user_fname, user_lname) VALUES ('$var_email', '$var_password', '$var_firstname', '$var_lastname')";
             if(mysqli_query($conn,$query)) {
-              echo "<p style='color:green;' class='h3 text-center mx-auto mt-5 mb-0'>Account successfully registered</p>";
+              echo "<p style='color:green;' class='h5 text-center mx-auto mt-1 mb-0'>Account successfully registered</p>";
               //header("Location: login.php");
               //sleep(2);
               //exit();
