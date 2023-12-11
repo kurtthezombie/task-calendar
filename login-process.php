@@ -9,8 +9,6 @@
             header("Location: login.php");
             exit();
         }
-        
-        $_SESSION['email'] = $email;
 
         //connect db
         $db = mysqli_connect("localhost","root","","taskcalendar");
@@ -22,16 +20,19 @@
             $result = mysqli_query($db,$query);
             if($result) {
                 $row = mysqli_fetch_assoc($result);
-                print_r($row);
                 if($row){
                     if(password_verify($password, $row['user_password'])) {
                         //Password matches, user authenticated
+                        $_SESSION['id'] = $row['user_idn'];
+                        $_SESSION['email'] = $email;
                         header("Location: main.php");
                         exit(); 
                     }
                     else{
                         //no user, incorrect user and password
-                        echo "<p style='color:red;'>Incorrect username and password!</p>"; 
+                        echo "<h1 style='color:red;'>Incorrect username and password!</h1>";
+                        echo "<a href='login.php'><h1>Go back</h1></a>";
+                        exit();
                     }
                 }
                 
