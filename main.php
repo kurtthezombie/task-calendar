@@ -50,16 +50,20 @@ function sesh_out(){
                     <h5 class="modal-title text-white" id="exampleModalLabel">Create Task</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="addtask.php" method="post">
+                <form action="addtask.php" method="post" id="taskForm">
                     <div class="modal-body p-5">
                         <div class="form-group">
                             <input type="text" name="TxtTaskTitle" id="TxtTaskTitle" class="form-control border-0 border-bottom border-3 rounded-0 mb-3" placeholder="Add Title" required>
                             <textarea class="form-control" name="TxtTaskDescription" id="TxtTaskDescription" cols="30" rows="5" placeholder="Add description"></textarea>
                         </div>
                         <div class="form-group">
+                            <label for="" class="form-label">Start Date</label>
+                            <input type="date" id="TxtStartDate" name="TxtStartDate" class="form-control" value="">
+                        </div>
+                        <div class="form-group">
                             <label for="" class="form-label">Due Date</label>
                             <div class="input-group">
-                                <input type="datetime-local" name="TxtDueDateTime" class="form-control" id="TxtDueDateTime" required>
+                                <input type="datetime-local" name="TxtDueDateTime" class="form-control" id="TxtDueDateTime">
                             </div>
                         </div>
                         <div class="form-group mb-2">
@@ -70,15 +74,16 @@ function sesh_out(){
                                 <option value="done">Done</option>
                             </select>
                         </div>
+                        <!-- SHARING FUNCTION removed
                         <div class="form-group">
                             <input type="email" id="TxtShareWith" class="form-control" placeholder="Share with...">
-                        </div>
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                         <label for="" class="form-label">Reminder: </label>
                         <select name="CboReminders" id="CboReminders" class="form-control w-15" itemid="statusDropdown">
                             <option value="0">Off</option>
-                            <option value="1">On</option> 
+                            <option value="1" selected>On</option> 
                         </select>
                         <button type="submit" class="btn btn-primary w-25" name="BtnTaskSave">Save</button>
                     </div>
