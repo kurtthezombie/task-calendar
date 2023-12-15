@@ -16,8 +16,7 @@ if (isset($_SESSION['email'])) {
 
         if (!$conn->connect_error) {
             echo "<p style='color:green;'>Connected successfully </p><br>";
-            $query = "INSERT INTO `task` (task_title, task_description, task_startdate, task_duedatetime,task_status,task_reminder,task_date_created,task_user_id)
-                        values ('$var_task_title','$var_task_description','$var_task_startdate','$var_task_duedatetime','$var_task_status',$var_task_reminders,NOW(),$owner_id);";
+            $query = "CALL sp_createTask('$var_task_title','$var_task_description','$var_task_startdate','$var_task_duedatetime','$var_task_status',$var_task_reminders,$owner_id);";
             if (mysqli_query($conn, $query)) {
                 echo "Task added successfullay.";
                 header("Location: main.php");

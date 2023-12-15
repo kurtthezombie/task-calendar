@@ -16,10 +16,13 @@ if (isset($_SESSION['email'])) {
         $events = array();
         while ($row = $result->fetch_assoc()) {
             $events[] = array(
-                //'id' => $row['task_id'],
+                'id' => $row['task_id'],
                 'title' => $row['task_title'],
-                'start' => $row['task_startdate'] . 'T00:00:00',
-                'end' => $row['task_duedatetime']
+                'start' => $row['task_startdate'],
+                'end' => $row['task_duedatetime'],
+                'description' => $row['task_description'],
+                'status' => $row['task_status'],
+                'reminder' => $row['task_reminder']
             );
         }
     } 

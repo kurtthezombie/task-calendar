@@ -30,10 +30,12 @@
                     }
                     else{
                         //no user, incorrect user and password
-                        echo "<h1 style='color:red;'>Incorrect username and password!</h1>";
-                        echo "<a href='login.php'><h1>Go back</h1></a>";
-                        exit();
+                        $_SESSION['error_message'] = "<h5 class='text-center pt-3 pb-0 mb-0' style='color:red;'>Incorrect username and password!</h1>";
+                        header("Location: login.php");
                     }
+                } else {
+                    $_SESSION['error_message'] = "<h5 class='text-center pt-3 pb-0 mb-0' style='color:red;'>User does not exist!</h1>";
+                    header("Location: login.php");
                 }
                 
             }
