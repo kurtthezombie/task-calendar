@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         themeSystem: 'standard',
+        timeZone: 'local',
         headerToolbar: {
             left: 'today prev,next',
             center: 'title',
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClick: function (info) {
             console.log("Event click functioning.."),
                 assignValue(info.event),
+                assignEditModal(info.event),
                 openModal('taskDisplayModal')
         },
         dateClick: function (info) {
@@ -62,7 +64,7 @@ function assignValue(eventInfo) {
     document.getElementById('TaskDescription').innerHTML = eventInfo.extendedProps.description;
     document.getElementById('StartDate').innerHTML = eventInfo.start;
     document.getElementById('EndDate').innerHTML = eventInfo.end;
-    switch (eventInfo.extendedProps.status) { 
+    switch (eventInfo.extendedProps.status) {
         case 'to-do':
             document.getElementById('TaskStatus').innerHTML = 'TO-DO';
             document.getElementById('TaskStatus').classList.add('text-muted');
@@ -82,8 +84,6 @@ function assignValue(eventInfo) {
             document.getElementById('TaskStatus').classList.remove('text-muted');
             break;
     }
-
-
 
     if (eventInfo.extendedProps.reminder == 1) {
         document.getElementById('ReminderSettings').innerHTML = 'ON';
@@ -109,7 +109,58 @@ function clearInputs() {
     //document.getElementById('CboReminders').value = 0;
 }
 
-function modalReadOnly() {
+function assignEditModal(eventInfo) {
+    console.log('IN assignEditModal');
+    //code here
+    document.getElementById('EditTaskId').value = eventInfo.id;
+
+    document.getElementById('TxtEditTaskTitle').value = eventInfo.title;
+
+    document.getElementById('TxtEditTaskDescription').value = eventInfo.extendedProps.description;
+
+    console.log(eventInfo.start);
+
+    document.getElementById('TxtEditStartDate').value = convertDateToISOString(eventInfo.start);
+
+    if (document.getElementById('TxtEditDueDateTime').value = '0000-00-00 00:00:00'){
+        document.getElementById('TxtEditDueDateTime').value = '';
+    } else {
+        document.getElementById('TxtEditDueDateTime').value = convertDateToISOString(eventInfo.end);
+    }
+    //document.getElementById('TxtEditDueDateTime').value = convertDateToISOString(eventInfo.end);
+
+    document.getElementById('EditCboStatus').value = eventInfo.extendedProps.status;
+    console.log(eventInfo.extendedProps.status);
+    
+    document.getElementById('EditCboReminders').value = eventInfo.extendedProps.reminder;
+    console.log(eventInfo.extendedProps.reminder);
+}
+
+function convertDateToISOString(dateToConvert) {
+    var dateString = dateToConvert;
+    var dateObject = new Date(dateString);
+
+    var formattedDate = dateObject.getFullYear() +
+        '-' +
+        ('0' + (dateObject.getMonth() + 1)).slice(-2) +
+        '-' +
+        ('0' + dateObject.getDate()).slice(-2) +
+        'T' +
+        ('0' + dateObject.getHours()).slice(-2) +
+        ':' +
+        ('0' + dateObject.getMinutes()).slice(-2);
+
+    console.log(formattedDate);
+    return formattedDate;
+}
+
+function editTaskModal() {
+    //console print every data
+    openModal('editTaskModal');
+
+}
+
+/*function modalReadOnly() {
     //convert the inputs to readOnly
     document.getElementById('TxtTaskTitle').readOnly = true;
     document.getElementById('TxtTaskDescription').readOnly = true;
@@ -120,7 +171,7 @@ function modalReadOnly() {
     document.getElementById('CboReminders').readOnly = true;
 
     openModal();
-}
+}*/
 
 function openModal(modalName) {
     var myModal = new bootstrap.Modal(document.getElementById(modalName));

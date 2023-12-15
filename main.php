@@ -47,7 +47,7 @@ function sesh_out()
 
 <body>
     <div class="container">
-        <!--MODAL FOR TASK-->
+        <!--MODAL FOR CREATE TASK-->
         <div class="modal fade align-items-center" id="addTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -129,7 +129,7 @@ function sesh_out()
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-lg btn-primary" name="BtnEdit">
+                            <button type="button" class="btn btn-lg btn-primary" name="BtnEdit" onclick="editTaskModal()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                                 </svg>
@@ -145,7 +145,52 @@ function sesh_out()
                 </form>
             </div>
         </div>
-        
+        <!--MODAL FOR EDIT TASK-->
+        <div class="modal fade align-items-center" id="editTaskModal" tabindex="-1" aria-labelledby="taskEdit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white">Edit Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="editdelete.php" method="POST">
+                        <div class="modal-body p-5">
+                            <div class="form-group">
+                                <input type="hidden" id="EditTaskId" name="EditTaskId">
+                                <input type="text" name="TxtEditTaskTitle" id="TxtEditTaskTitle" class="form-control border-0 border-bottom border-3 rounded-0 mb-3" placeholder="Add Title" required value="">
+                                <textarea class="form-control" name="TxtEditTaskDescription" id="TxtEditTaskDescription" cols="30" rows="5" placeholder="Add description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label">Start Date</label>
+                                <input type="datetime-local" id="TxtEditStartDate" name="TxtEditStartDate" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label">Due Date</label>
+                                <div class="input-group">
+                                    <input type="datetime-local" name="TxtEditDueDateTime" id="TxtEditDueDateTime" class="form-control" value="">
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="" class="form-label">Status</label>
+                                <select name="EditCboStatus" id="EditCboStatus" class="form-control" itemid="statusDropdown">
+                                    <option value="to-do">To-do</option>
+                                    <option value="doing">Doing</option>
+                                    <option value="done">Done</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <label for="" class="form-label">Reminder: </label>
+                            <select name="EditCboReminders" id="EditCboReminders" class="form-control w-15" itemid="statusDropdown">
+                                <option value="0">Off</option>
+                                <option value="1" selected>On</option>
+                            </select>
+                            <button type="submit" class="btn btn-success w-50" name="BtnTaskSaveChanges">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="container mt-5">
             <div id='calendar' style="height: 100%; width: 100%;" class="border-3 border-danger"></div>
             <div class="row mt-5">
