@@ -117,14 +117,15 @@ function assignEditModal(eventInfo) {
     document.getElementById('TxtEditTaskTitle').value = eventInfo.title;
 
     document.getElementById('TxtEditTaskDescription').value = eventInfo.extendedProps.description;
-
-    console.log(eventInfo.start);
-
+    //console print startdate
+    console.log('Startdate: ' + eventInfo.start);
+    //startdate
     document.getElementById('TxtEditStartDate').value = convertDateToISOString(eventInfo.start);
-
-    if (document.getElementById('TxtEditDueDateTime').value = '0000-00-00 00:00:00'){
+    //duedate
+    if (document.getElementById('TxtEditDueDateTime').value === '0000-00-00 00:00:00' || document.getElementById('TxtEditDueDateTime').value == null){
         document.getElementById('TxtEditDueDateTime').value = '';
     } else {
+        console.log('If formatted ba: ' +convertDateToISOString(eventInfo.end))
         document.getElementById('TxtEditDueDateTime').value = convertDateToISOString(eventInfo.end);
     }
     //document.getElementById('TxtEditDueDateTime').value = convertDateToISOString(eventInfo.end);
@@ -150,7 +151,7 @@ function convertDateToISOString(dateToConvert) {
         ':' +
         ('0' + dateObject.getMinutes()).slice(-2);
 
-    console.log(formattedDate);
+    console.log('convertedDate: ' +formattedDate);
     return formattedDate;
 }
 
