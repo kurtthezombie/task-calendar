@@ -182,8 +182,8 @@ function sesh_out()
                         <div class="modal-footer">
                             <label for="" class="form-label">Reminder: </label>
                             <select name="EditCboReminders" id="EditCboReminders" class="form-control w-15" itemid="statusDropdown">
-                                <option value="0">Off</option>
-                                <option value="1" selected>On</option>
+                                <option value="0" selected>Off</option>
+                                <option value="1">On</option>
                             </select>
                             <button type="submit" class="btn btn-success w-50" name="BtnTaskSaveChanges">Save Changes</button>
                         </div>
@@ -195,7 +195,7 @@ function sesh_out()
             <div id='calendar' style="height: 100%; width: 100%;" class="border-3 border-danger"></div>
             <div class="row mt-5">
                 <!--LOGOUT BUTTON-->
-                <form action="main.php" method="POST" class="justify-content-end">
+                <form action="main.php" method="POST" class="justify-content-end mb-5">
                     <div class="form-group">
                         <button type="submit" name="logout" class="btn btn-large btn-danger w-100">Logout</button>
                     </div>

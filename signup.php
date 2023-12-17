@@ -12,7 +12,7 @@ if (isset($_SESSION['email'])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bootstrap demo</title>
+  <title>Register</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   <style>
@@ -138,7 +138,7 @@ if (isset($_SESSION['email'])) {
                 <input type="password" class="form-control placeholder-gray border-bottom border-3 my-1 border-0 rounded-0" id="password" name="TxtPassword" placeholder="Enter Password" required />
               </div>
               <div class="text-center mt-3">
-                <button type="submit" class="btn btn-lg btn-primary" name="btnCreateAcc">CREATE ACCOUNT</button>
+                <button type="submit" class="btn btn-lg btn-primary" name="btnCreateAcc" onclick="return confirm('Are you sure you want to create this account?')">CREATE ACCOUNT</button>
               </div>
             </form>
           </div>

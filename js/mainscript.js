@@ -122,7 +122,7 @@ function assignEditModal(eventInfo) {
     //startdate
     document.getElementById('TxtEditStartDate').value = convertDateToISOString(eventInfo.start);
     //duedate
-    if (document.getElementById('TxtEditDueDateTime').value === '0000-00-00 00:00:00' || document.getElementById('TxtEditDueDateTime').value == null){
+    if (eventInfo.end == '0000-00-00 00:00:00' || eventInfo.end == null){
         document.getElementById('TxtEditDueDateTime').value = '';
     } else {
         console.log('If formatted ba: ' +convertDateToISOString(eventInfo.end))
