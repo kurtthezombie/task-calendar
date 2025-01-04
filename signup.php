@@ -37,6 +37,8 @@ if (isset($_SESSION['email'])) {
   $var_lastname = "";
   $var_email = "";
   $var_password = "";
+  $var_first_password = "";
+  $var_second_password = "";
 
   if (isset($_POST["btnCreateAcc"])) {
     //set values to vars
@@ -44,6 +46,9 @@ if (isset($_SESSION['email'])) {
     $var_lastname = $_POST["TxtLastName"];
     $var_email = trim($_POST["TxtEmail"]);
     $var_password = password_hash($_POST["TxtPassword"], PASSWORD_BCRYPT);
+    
+    $var_first_password = trim($_POST['TxtPassword']);
+    $var_second_password = trim($_POST['TxtConfirmPassword']);
 
     //print errors
     $errors = array();
@@ -65,6 +70,11 @@ if (isset($_SESSION['email'])) {
     if (!isEmailUnique($var_email)) {
       $errors[] = "<p style='color:red;' class='h5 text-center mx-auto mt-1 mb-0'>Somebody already owns this email address</p>";
     }
+    //et: check if confirm password is correct:
+    if ($var_first_password != $var_second_password) {
+      $errors[] = "<p style='color:red;' class='h5 text-center mx-auto mt-1 mb-0'>Password do not match. Please enter matching passwords.</p>";
+    }
+
     //et: password - none
     if (!empty($errors)) {
       //if error is not empty, print all error messages at once
@@ -76,7 +86,7 @@ if (isset($_SESSION['email'])) {
       $conn = mysqli_connect("localhost", "root", "", "taskcalendar");
       if (!$conn->connect_error) {
         //insert into
-        $query = "CALL sp_createUser('$var_email', '$var_password', '$var_firstname', '$var_lastname')";
+        $query = "INSERT INTO user_info (user_email, user_password, user_fname, user_lname) VALUES ('$var_email', '$var_password', '$var_firstname', '$var_lastname')";
         if (mysqli_query($conn, $query)) {
           echo "<p style='color:green;' class='h5 text-center mx-auto mt-1 mb-0'>Account successfully registered</p>";
           //header("Location: login.php");
@@ -136,6 +146,8 @@ if (isset($_SESSION['email'])) {
               <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" class="form-control placeholder-gray border-bottom border-3 my-1 border-0 rounded-0" id="password" name="TxtPassword" placeholder="Enter Password" required />
+                <label for="password">Confirm Password:</label>
+                <input type="password" class="form-control placeholder-gray border-bottom border-3 my-1 border-0 rounded-0" id="password" name="TxtConfirmPassword" placeholder="Re-enter Password" required />
               </div>
               <div class="text-center mt-3">
                 <button type="submit" class="btn btn-lg btn-primary" name="btnCreateAcc" onclick="return confirm('Are you sure you want to create this account?')">CREATE ACCOUNT</button>

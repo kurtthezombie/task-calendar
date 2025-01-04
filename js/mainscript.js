@@ -7,6 +7,7 @@ document.getElementById('addTaskModal').addEventListener('hidden.bs.modal', func
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
+        height: 900,
         themeSystem: 'standard',
         timeZone: 'local',
         headerToolbar: {

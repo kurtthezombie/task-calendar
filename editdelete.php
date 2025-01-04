@@ -23,13 +23,19 @@ if (isset($_SESSION['email'])) {
 
     if (isset($_POST['BtnTaskSaveChanges'])) {
         $var_taskId = $_POST['EditTaskId'];
-        $var_taskTitle = $_POST['TxtEditTaskTitle'];
+
         $var_taskdescription = $_POST['TxtEditTaskDescription'];
         $var_startdate = $_POST['TxtEditStartDate'];
         $var_duedate = $_POST['TxtEditDueDateTime'];
         $var_status = $_POST['EditCboStatus'];
         $var_reminder = $_POST['EditCboReminders'];
+
         $conn = mysqli_connect("localhost","root","","taskcalendar");
+        //clean inputs
+        $var_taskTitle = mysqli_real_escape_string($conn,$_POST['TxtEditTaskTitle']);
+        $var_taskdescription = isset($_POST['TxtEditTaskDescription']) ? $_POST['TxtEditTaskDescription'] : null;
+        $var_taskdescription = mysqli_real_escape_string($conn,$var_taskdescription);
+        
         if (!$conn->connect_error) {
             $query = "CALL sp_updateTask(
                 $var_taskId,

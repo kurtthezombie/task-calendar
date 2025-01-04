@@ -44,7 +44,25 @@ function sesh_out()
     </style>
     <title>Calendar</title>
 </head>
+<script>
+    function validateForm(){
+        const startDate = document.getElementById('TxtStartDate').value;
+        const dueDateTime = document.getElementById('TxtDueDateTime').value;
+        const currentDate = new Date().toISOString().split('T')[0];
 
+        if (startDate < currentDate) {
+            alert("Start date cannot be in the past.");
+            return false;
+        }
+
+        if (dueDateTime && dueDateTime < startDate) {
+            alert("Due date/time must be after the start date.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 <body>
     <div class="container">
         <!--MODAL FOR CREATE TASK-->
@@ -55,7 +73,7 @@ function sesh_out()
                         <h5 class="modal-title text-white" id="exampleModalLabel">Create Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="addtask.php" method="post" id="taskForm">
+                    <form action="addtask.php" method="post" id="taskForm" onsubmit="return validateForm()">
                         <div class="modal-body p-5">
                             <div class="form-group">
                                 <input type="text" name="TxtTaskTitle" id="TxtTaskTitle" class="form-control border-0 border-bottom border-3 rounded-0 mb-3" placeholder="Add Title" required>
@@ -173,7 +191,7 @@ function sesh_out()
                             <div class="form-group mb-2">
                                 <label for="" class="form-label">Status</label>
                                 <select name="EditCboStatus" id="EditCboStatus" class="form-control" itemid="statusDropdown">
-                                    <option value="to-do">To-do</option>
+                                    <option value="to-do" selected>To-do</option>
                                     <option value="doing">Doing</option>
                                     <option value="done">Done</option>
                                 </select>
@@ -191,7 +209,7 @@ function sesh_out()
                 </div>
             </div>
         </div>
-        <div class="container mt-5">
+        <div class="container mt-3">
             <div id='calendar' style="height: 100%; width: 100%;" class="border-3 border-danger"></div>
             <div class="row mt-5">
                 <!--LOGOUT BUTTON-->
