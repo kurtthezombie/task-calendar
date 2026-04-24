@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #ffffff;
+  color: #111827;
+}
+
+.fc .fc-button-primary {
+  background-color: #e736a9;
+  border-color: #e736a9;
+}
+
+.fc .fc-button-primary:hover,
+.fc .fc-button-primary:focus {
+  background-color: #cf2f98;
+  border-color: #cf2f98;
+}
+
+.fc .fc-toolbar-title {
+  font-weight: 700;
+}
